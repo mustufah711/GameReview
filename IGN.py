@@ -41,15 +41,15 @@ def main():
     
     """
     for container in game_container:
-        name = container.h3.a.text
+        name = container.h3.a.text.replace('\n','')
         names.append(name)
         rating = container.find('span', class_='scoreBox-score')
         rating = float(rating.text)
         game_score.append(rating)
-        game_type = container.find('span', class_='item-genre').text
+        game_type = container.find('span', class_='item-genre').text.replace('\n','')
         genre.append(game_type)
+
     """
-    
     for i in range(1,5):
         print('iteration', '', j)
         header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
@@ -73,12 +73,12 @@ def main():
         game_info = html_soup.find_all('div', class_='clear itemList-item')
         
         for container in game_info:
-            name = container.h3.a.text
+            name = container.h3.a.text.replace('\n','')
             names.append(name)
             rating = container.find('span', class_='scoreBox-score')
             rating = float(rating.text)
             game_score.append(rating)
-            game_type = container.find('span', class_='item-genre').text
+            game_type = container.find('span', class_='item-genre').text.replace('\n','')
             genre.append(game_type)
     
     game_store = pd.DataFrame({'name': names,
@@ -86,5 +86,6 @@ def main():
                                'genres': genre})
     print(game_store.info())
     #print(game_store.values)
-    print(game_store.head(50))        
+    print(game_store.head(50))
+    #game_store.to_csv('test.csv')    
 main()
