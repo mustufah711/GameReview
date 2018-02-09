@@ -13,10 +13,10 @@
 11,                Puzzle            ,                Gorogoa            ,8.5
 12,"                Action, Adventure            ",                Shadow of the Colossus            ,9.7
 13,                Adventure            ,                Subnautica            ,9.1
-14,                Platformer            ,                Celeste            ,10.0
-15,                Platformer            ,                Celeste            ,10.0
-16,                Platformer            ,                Celeste            ,10.0
-17,                Platformer            ,                Celeste            ,10.0
+14,                Platformer            ,                Celeste            ,10
+15,                Platformer            ,                Celeste            ,10
+16,                Platformer            ,                Celeste            ,10
+17,                Platformer            ,                Celeste            ,10
 18,                Action            ,                Monster Hunter World            ,9.5
 19,                Action            ,                Monster Hunter World            ,9.5
 20,                RPG            ,                Lost Sphear            ,6.7
@@ -32,8 +32,8 @@
 30,                Sports            ,                AO Tennis            ,4.5
 31,                Sports            ,                AO Tennis            ,4.5
 32,                Flight            ,                InnerSpace            ,6.5
-33,                Fighting            ,                Street Fighter V: Arcade Edition            ,9.0
-34,                Fighting            ,                Street Fighter V: Arcade Edition            ,9.0
+33,                Fighting            ,                Street Fighter V: Arcade Edition            ,9
+34,                Fighting            ,                Street Fighter V: Arcade Edition            ,9
 35,                Adventure            ,                L.A. Noire: The VR Case Files             ,8.5
 36,                Fighting            ,                Battlerite            ,8.2
 37,                Shooter            ,                PlayerUnknown's Battlegrounds            ,9.5
@@ -41,7 +41,7 @@
 39,                Strategy            ,                Tiny Metal            ,6.8
 40,                Adventure            ,                Life is Strange: Before the Storm -- Episode 3: Hell is Empty            ,7.8
 41,                Action            ,                Dreadnought            ,7.4
-42,                Puzzle            ,                Bridge Constructor Portal            ,8.0
+42,                Puzzle            ,                Bridge Constructor Portal            ,8
 43,                RPG            ,                Fallout 4 VR            ,7.9
 44,                Puzzle            ,                Opus Magnum            ,9.5
 45,                Action            ,                Battlestar Galactica Deadlock            ,7.8
