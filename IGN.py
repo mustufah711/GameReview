@@ -13,6 +13,7 @@ def main():
     names = []
     game_score = []
     genre = []
+    platform = []
     requests = 0
     #Starting index for website
     j = '25'
@@ -59,13 +60,16 @@ def main():
             game_score.append(rating)
             game_type = container.find('span', class_='item-genre').text.replace('\n','').encode('utf-8').strip()
             genre.append(game_type)
+            platforms = container.find('span', class_='item-platform')
+            platform.append(platforms.text.encode('utf-8').strip())
     
     #Store each entry into a panda DS and save it to CSV file since data deletes after every new request
     game_store = pd.DataFrame({'name': names,
                                'score': game_score,
-                               'genres': genre})
+                               'genres': genre,
+                               'platform': platform})
     #See if entry stroage was successful by viewing how many entries were saved
     print(game_store.info())
     #Save to CSV
-    game_store.to_csv('test2.csv')    
+    game_store.to_csv('test3.csv')    
 main()
