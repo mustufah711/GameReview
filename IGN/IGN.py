@@ -16,11 +16,11 @@ def main():
     platform = []
     requests = 0
     #Starting index for website
-    j = '25'
+    j = '0'
     start_time = time()
     
     #Run through each page and retrieve data for each game based on tag
-    for i in range(1,4):
+    for i in range(1,5):
         print('iteration', '', j)
         header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
         #Retrieve website url 
@@ -71,5 +71,5 @@ def main():
     #See if entry stroage was successful by viewing how many entries were saved
     print(game_store.info())
     #Save to CSV
-    game_store.to_csv('test3.csv')    
+    game_store.to_csv('ign.csv')    
 main()
