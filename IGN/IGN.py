@@ -20,7 +20,7 @@ def main():
     start_time = time()
     
     #Run through each page and retrieve data for each game based on tag
-    for i in range(1,251):
+    for i in range(1,100001):
         print('iteration', '', j)
         header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
         #Retrieve website url 
@@ -42,7 +42,7 @@ def main():
             warn('Request: {}; Status code: {}'.format(requests, response.status_code))    
             
         #Make sure request do not exceed certain limit
-        if requests > 250:
+        if requests > 10000:
             warn('Number of requests was greater than expected.')  
             break
         
