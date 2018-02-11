@@ -31,7 +31,7 @@ header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWeb
 
 #number of pages scrapped
 pages = 0
-while (pages < 5):
+while (pages < 831):
     #connecting to the website and getting a response
     pages += 1
     url = 'https://www.polygon.com/games/reviewed/' + str(pages)
@@ -42,7 +42,7 @@ while (pages < 5):
         print('Request: ' + str(request) + '; Failed.\n')
         log_file.write('Request: ' + str(request) + '; Failed.\n')
     else:   
-        sleep(randint(8,15))      
+        sleep(randint(5,10))      
         elapsed_time = time() - start_time
         totaltime += elapsed_time
         print('Request: ' + str(request) + '; Frequency: ' + str(elapsed_time / request) + ' sec/request\n')
