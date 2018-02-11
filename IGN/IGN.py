@@ -14,13 +14,14 @@ def main():
     game_score = []
     genre = []
     platform = []
+    review_date = [] 
     requests = 0
     #Starting index for website
     j = '0'
     start_time = time()
     
     #Run through each page and retrieve data for each game based on tag
-    for i in range(1,100001):
+    for i in range(1,10001):
         print('iteration', '', j)
         header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
         #Retrieve website url 

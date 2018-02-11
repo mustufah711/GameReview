@@ -19,7 +19,7 @@ def main():
     first_game = game_container[0]
     print(first_game)
     
-    game_name = first_game.h3.find('div', class_='media-body')
+    game_name = float(first_game.h3.find('div', class_='media-body').text)
     print(game_name)
 
 main()
