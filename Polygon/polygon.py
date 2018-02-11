@@ -25,7 +25,7 @@ reviewed = []
 request = 0
 start_time = time()
 log_file = open('PolygonLog.txt', 'w')
-
+totaltime = 0
 #header to avoid issues with websites not connecting 
 header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
@@ -39,12 +39,14 @@ while (pages < 5):
     request += 1
     
     if(result.status_code != 200):
+        print('Request: ' + str(request) + '; Failed.\n')
         log_file.write('Request: ' + str(request) + '; Failed.\n')
     else:   
-        sleep(randint(8,15))
-        
+        sleep(randint(8,15))      
         elapsed_time = time() - start_time
-        log_file.write('Request: ' + str(request) + '; Frequency: ' + str(request / elapsed_time) + ' requests/sec\n')
+        totaltime += elapsed_time
+        print('Request: ' + str(request) + '; Frequency: ' + str(elapsed_time / request) + ' sec/request\n')
+        log_file.write('Request: ' + str(request) + '; Frequency: ' + str(elapsed_time / request) + ' sec/request\n')
         #get the list of all games on the page
         page = BeautifulSoup(result.content, 'html.parser')
         temp = page.find('ul', class_ = 'm-game--index__list')
@@ -78,4 +80,5 @@ db = pd.DataFrame({'name': name,
                    'reviewed': reviewed})
     
 db.to_csv('ploygon.csv')
+log_file.write('AVG Time: ' + str(totaltime / request))
 log_file.close()
