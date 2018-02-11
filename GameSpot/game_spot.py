@@ -17,7 +17,7 @@ def main():
     game_container = html_soup.find_all('article', class_='media media-game media-game')
     print(len(game_container))
     first_game = game_container[0]
-    #print(first_game)
+    print(first_game)
     
     game_name = first_game.h3.find('div', class_='media-body')
     print(game_name)
