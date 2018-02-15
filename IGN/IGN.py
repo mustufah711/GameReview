@@ -31,7 +31,7 @@ def main():
         j = int(j)+25
         j = str(j)
         #Between each request, go to sleep between 8 to 15 seconds to not overload server
-        sleep(randint(8,15))
+        sleep(randint(7,10))
         requests+=1
         elapsed_time = time() - start_time
         #Print how long each request takes
