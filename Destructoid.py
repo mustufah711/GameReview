@@ -19,27 +19,33 @@ def main():
     print(len(game_container))
     first_game = game_container[0]
     #print(first_game)
+    platforms = first_game.find('div', class_='gplatforms').find_all('a')
+    #print(platforms[1].text)
+    a = 0
+    pal = ''
+    for i in platforms:
+        if(a==len(platforms)-1):
+            pal = pal + i.text
+        else:
+            pal = pal + i.text + ','
+        a+=1
     
-    game_title = first_game.h1.a.text
-    print(game_title)
-    game_score = float(first_game.find('div', class_='gscore').text)
-    print(game_score)
-    #review_date = first_game.find('span', class_='datePublished').text
-    #print(review_date)
-    platforms = first_game.find('div', class_='gplatforms')
-    print(platforms)
-    
+    print(pal)
     game = []
     score = []
+    #platform = []
     requests = 0
+    j = '0'
     start_time = time()
-    
+    """
     for i in range(1,5):
         print('iteration', '', i)
         header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
-        response = get('https://www.destructoid.com/products-index.phtml?filt=reviews&date_s=desc&category=')
+        response = get('https://www.destructoid.com/products-index.phtml?filt=reviews&date_s=desc&category=&nonce=1518737806537&start='+j, headers = header)
         print(response)
-        sleep(randint(8,15))
+        j = int(j)+25
+        j = str(j)
+        sleep(randint(5,7))
         requests+=1
         elapsed_time = time() - start_time
         #Print how long each request takes
@@ -59,16 +65,19 @@ def main():
         html_soup = BeautifulSoup(response.text, 'html.parser')
         #Find the ultimate div for each game info and start parsing
         game_info = html_soup.find_all('div', class_='mod-4col')
+        game_platform = html_soup.find('div', class_='gplatforms')
         
         for container in game_info:
-            if container.find('div', class_='gplatforms').text is not 'Film or TV':
+            if container.find('div', class_='gplatforms').text != 'Film or TV':
                 game_title = container.h1.a.text
                 game.append(game_title)
-                game_score = float(container.find('div', class_='gscore').text)
+                game_score = container.find('div', class_='gscore').text
                 score.append(game_score)
-            
+                for s in game_platform:
+                    
+    """     
     info = pd.DataFrame({'game': game,
                          'score': score})
-    print(info.values)    
+    #print(info.values)    
         
 main()
