@@ -21,7 +21,7 @@ def main():
     start_time = time()
     
     #Run through each page and retrieve data for each game based on tag
-    for i in range(1,10001):
+    for i in range(1,4):
         print('iteration', '', j)
         header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
         #Retrieve website url 
@@ -43,7 +43,7 @@ def main():
             warn('Request: {}; Status code: {}'.format(requests, response.status_code))    
             
         #Make sure request do not exceed certain limit
-        if requests > 10000:
+        if requests > 3:
             warn('Number of requests was greater than expected.')  
             break
         
@@ -63,14 +63,17 @@ def main():
             genre.append(game_type)
             platforms = container.find('span', class_='item-platform')
             platform.append(platforms.text.encode('utf-8').strip())
-    
+            date = container.find_all('div', {"class": "grid_3"})[1].text.replace('\n','').encode('utf-8').strip()
+            review_date.append(date)
+
     #Store each entry into a panda DS and save it to CSV file since data deletes after every new request
     game_store = pd.DataFrame({'name': names,
                                'score': game_score,
                                'genres': genre,
-                               'platform': platform})
+                               'platform': platform,
+                               'date': review_date})
     #See if entry stroage was successful by viewing how many entries were saved
     print(game_store.info())
     #Save to CSV
-    game_store.to_csv('ign.csv')    
+    game_store.to_csv('ign3.csv')    
 main()

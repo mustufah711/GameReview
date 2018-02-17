@@ -8,36 +8,15 @@ from IPython.core.display import clear_output
 from time import time
 
 def main():
-    header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
-    url = 'https://www.destructoid.com/products-index.phtml?date_s=desc&filt=reviews&category=&display=&name_s=&alpha='
-    response = get(url, headers=header)
-    print(response)
     
-    html_soup = BeautifulSoup(response.text, 'html.parser')
-    
-    game_container = html_soup.find_all('div', class_='mod-4col')
-    print(len(game_container))
-    first_game = game_container[0]
-    #print(first_game)
-    platforms = first_game.find('div', class_='gplatforms').find_all('a')
-    #print(platforms[1].text)
-    a = 0
-    pal = ''
-    for i in platforms:
-        if(a==len(platforms)-1):
-            pal = pal + i.text
-        else:
-            pal = pal + i.text + ','
-        a+=1
-    
-    print(pal)
     game = []
     score = []
+    platform = []
     #platform = []
     requests = 0
     j = '0'
     start_time = time()
-    """
+    
     for i in range(1,5):
         print('iteration', '', i)
         header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
@@ -73,11 +52,20 @@ def main():
                 game.append(game_title)
                 game_score = container.find('div', class_='gscore').text
                 score.append(game_score)
-                for s in game_platform:
-                    
-    """     
+                platforms = container.find('div', class_='gplatforms').find_all('a')
+                a = 0
+                pal = ''
+                for i in platforms:
+                    if(a==len(platforms)-1):
+                        pal = pal + i.text
+                    else:
+                        pal = pal + i.text + ','
+                    a+=1
+                platform.append(pal)
+   
     info = pd.DataFrame({'game': game,
-                         'score': score})
-    #print(info.values)    
+                         'score': score,
+                         'platform': platform})
+    print(info.values)    
         
 main()
