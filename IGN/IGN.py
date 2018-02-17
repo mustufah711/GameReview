@@ -21,11 +21,8 @@ def main():
     start_time = time()
     
     #Run through each page and retrieve data for each game based on tag
-<<<<<<< HEAD
+
     for i in range(1,4):
-=======
-    for i in range(1,1001):
->>>>>>> c39d14ad9011548aeaa7a37651406c712ac4d903
         print('iteration', '', j)
         header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
         #Retrieve website url 
