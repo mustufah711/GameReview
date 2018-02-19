@@ -17,12 +17,12 @@ def main():
     review_date = [] 
     requests = 0
     #Starting index for website
-    j = '0'
+    j = '5000'
     start_time = time()
     
     #Run through each page and retrieve data for each game based on tag
 
-    for i in range(1,4):
+    for i in range(1,151):
         print('iteration', '', j)
         header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
         #Retrieve website url 
@@ -32,7 +32,7 @@ def main():
         j = int(j)+25
         j = str(j)
         #Between each request, go to sleep between 8 to 15 seconds to not overload server
-        sleep(randint(7,10))
+        sleep(randint(5,7))
         requests+=1
         elapsed_time = time() - start_time
         #Print how long each request takes
@@ -44,7 +44,7 @@ def main():
             warn('Request: {}; Status code: {}'.format(requests, response.status_code))    
             
         #Make sure request do not exceed certain limit
-        if requests > 3:
+        if requests > 150:
             warn('Number of requests was greater than expected.')  
             break
         
@@ -76,5 +76,5 @@ def main():
     #See if entry stroage was successful by viewing how many entries were saved
     print(game_store.info())
     #Save to CSV
-    game_store.to_csv('ign3.csv')    
+    game_store.to_csv('ign5.csv')    
 main()
