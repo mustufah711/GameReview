@@ -26,7 +26,7 @@ user_score = []
 header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 url = 'https://www.gamespot.com'
 start_time = time()
-for page_num in range(1, 11):
+for page_num in range(1, 101):
     result = r.get((url + '/reviews/?page=' + str(page_num)), headers=header)
     print(result.status_code)
     
@@ -43,10 +43,10 @@ for page_num in range(1, 11):
         names.append(str((soup2.find('dt', class_='pod-objectStats-info__title').a.text.strip())[:-9].strip()))
         
         #release date
-        release_dates.append(str(soup2.find('dd', class_='pod-objectStats-info__release').li.span.text.strip()))
+        release_dates.append(soup2.find('dd', class_='pod-objectStats-info__release').li.span.text.strip())
         
         #review date
-        reviewed_dates.append(str(soup2.find('h3', class_='news-byline').time.text.strip()[:12]))
+        reviewed_dates.append(soup2.find('h3', class_='news-byline').time.text.strip()[:12])
         
         #publiser rateing
         score.append(float(soup2.find('div', class_='gs-score__cell').text.strip()))
@@ -70,39 +70,25 @@ for page_num in range(1, 11):
         else:
             user_score.append(None)
         
-        
         #container for info (devs, pubs, ganres)
         info_list = soup2.find('dl', class_='pod-objectStats-additional').find_all('dd')
-        
-        #devs
-        dev_list = info_list[0].find_all('a')
-        dev = ''
-        for i in range(len(dev_list)):
-            if(i == 0):
-                dev = dev + dev_list[i].text.strip()
-            else:
-                dev = dev + ',' + dev_list[i].text.strip() 
-        devlopers.append(str(dev))
-        
-        #pubs
-        pub_list = info_list[1].find_all('a')
-        pub = ''
-        for i in range(len(pub_list)):
-            if(i == 0):
-                pub = pub + pub_list[i].text.strip()
-            else:
-                pub = pub + ',' + pub_list[i].text.strip() 
-        publishers.append(str(pub))
-        
-        #gens
-        gen_list = info_list[2].find_all('a')
-        gen = ''
-        for i in range(len(gen_list)):
-            if(i == 0):
-                gen = gen + gen_list[i].text.strip()
-            else:
-                gen = gen + ',' + gen_list[i].text.strip() 
-        genres.append(str(gen))
+        if len(info_list) >= 3:           
+            #devs
+            dev = info_list[0].text.strip()
+            devlopers.append(str(dev))
+            
+            #pubs
+            pub = info_list[1].text.strip()
+            publishers.append(str(pub))
+            
+            #gens
+            gen = info_list[2].text.strip()
+            genres.append(str(gen))
+            
+        else:
+            devlopers.append(None)
+            publishers.append(None)
+            genres.append(None)
         
         sleep(randint(1, 3))
 
