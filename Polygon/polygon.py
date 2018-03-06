@@ -31,7 +31,7 @@ header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWeb
 
 #number of pages scrapped
 pages = 0
-while (pages < 831):
+while (pages < 35):
     #connecting to the website and getting a response
     pages += 1
     url = 'https://www.polygon.com/games/reviewed/' + str(pages)
