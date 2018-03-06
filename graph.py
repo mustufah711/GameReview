@@ -4,6 +4,13 @@ Created on Tue Mar 06 11:29:46 2018
 
 @author: Mustufa
 """
+#https://stackoverflow.com/questions/29498652/plot-bar-graph-from-pandas-dataframe
+
+"""
+Graph idea: Get each site, get average for each genre and then graph it using bar
+graph to compare the average scores between each site and see which site prefers a 
+certain genre over another"
+"""
 
 import mysql.connector
 import pandas as pd
