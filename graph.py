@@ -12,76 +12,50 @@ graph to compare the average scores between each site and see which site prefers
 certain genre over another"
 """
 
-"""
-my_data = {1965:{'a':52, 'b':54, 'c':67, 'd':45}, 
-      1966:{'a':34, 'b':34, 'c':35, 'd':76}, 
-      1967:{'a':56, 'b':56, 'c':54, 'd':34}}  
-A way to plot IGN, Gamespot, Destructoid, Polygon
-"""
+#axs = result[['IGN_Score','Dest_Score']].plot(kind='bar', title='Game Score', figsize=(10,10), fontsize=12)
 
 import mysql.connector
 import pandas as pd
 import matplotlib.pyplot as plt
-"""
-hostname = 'game-reviews.cix4c2nzx8tc.us-east-2.rds.amazonaws.com'
-username = 'gamers'
-password = 'mostharsh'
-database = 'GameReviews'
-
-name = []
-score = []
-platform = []
-
-def dbRun(conn):
-    cur = conn.cursor()
-    cur.execute("SELECT Name, Score, Platforms FROM Polygon WHERE Score >6 AND Platforms LIKE '%PS4%'")
-    
-    for names, scores, platforms in cur.fetchall():
-        name.append(names)
-        score.append(scores)
-        platform.append(platforms)
-
-myConn = mysql.connector.connect(host=hostname, user=username, passwd=password, db=database)
-dbRun(myConn)
-result = pd.DataFrame({'Name':name,
-                       'Score': score,
-                       'Platform':platform})
-
-axs = result[['Name','Score']].plot(kind='line', title='Game Score', figsize=(10,10), fontsize=12)
-axs.set_xlabel("Name", fontsize=12)
-axs.set_ylabel("Score", fontsize=12)
-plt.show()
-
-myConn.close()
-"""
 
 hostname = 'game-reviews.cix4c2nzx8tc.us-east-2.rds.amazonaws.com'
 username = 'gamers'
 password = 'mostharsh'
 database = 'GameReviews'
 
-name = []
 score1 = []
 score2 = []
-platform = []
+score3 = []
+score4 = []
+
 
 def dbRun(conn):
     cur = conn.cursor()
-    cur.execute("select distinct i.Name, i.Score, d.Score from Destructoid d, IGN i where d.name = i.name and i.Genre = 'Shooter'")
+    cur.execute("select AVG(i.Score) as ign, AVG(d.Score) as dest from Destructoid d, IGN i where d.name = i.name and i.Genre like '%Fighting%'")
     
-    for names, scores1, scores2 in cur.fetchall():
-        name.append(names)
-        score1.append(scores1)
-        score2.append(scores2)
+    for scores1, scores2 in cur.fetchall():
+        score1.append(float(scores1))
+        score2.append(float(scores2))
+
+def dbRun2(conn):
+    cur = conn.cursor()
+    cur.execute("select AVG(i.Score) as ign, AVG(d.Score) as dest from Destructoid d, IGN i where d.name = i.name and i.Genre like '%RPG%'")
+    
+    for scores1, scores2 in cur.fetchall():
+        score3.append(float(scores1))
+        score4.append(float(scores2))
 
 myConn = mysql.connector.connect(host=hostname, user=username, passwd=password, db=database)
 dbRun(myConn)
-result = pd.DataFrame({'IGN_Score': score1,
-                       'Dest_Score': score2})
+dbRun2(myConn)
 
-axs = result[['IGN_Score','Dest_Score']].plot(kind='bar', title='Game Score', figsize=(10,10), fontsize=12)
-axs.set_xlabel("Shooter Games Result", fontsize=16)
-axs.set_ylabel("Score", fontsize=12)
+my_data = {'Figher':{'IGN':score1[0], 'Dest':score2[0]},
+           'RPG':{'IGN':score3[0], 'Dest':score4[0]}}
+df = pd.DataFrame(my_data)
+axs = df.T.plot(kind='bar', title='Genre Averages', figsize=(10,10), fontsize=12)
+axs.set_xlabel("Genre Type", fontsize=12)
+axs.set_ylabel("Average Score", fontsize=12)
+
 plt.show()
 
 myConn.close()
