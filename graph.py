@@ -79,8 +79,8 @@ dbRun(myConn)
 result = pd.DataFrame({'IGN_Score': score1,
                        'Dest_Score': score2})
 
-axs = result[['IGN_Score','Dest_Score']].plot(kind='line', title='Game Score', figsize=(10,10), fontsize=12)
-axs.set_xlabel("Shooter Games", fontsize=12)
+axs = result[['IGN_Score','Dest_Score']].plot(kind='bar', title='Game Score', figsize=(10,10), fontsize=12)
+axs.set_xlabel("Shooter Games Result", fontsize=16)
 axs.set_ylabel("Score", fontsize=12)
 plt.show()
 
