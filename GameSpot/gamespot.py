@@ -23,11 +23,11 @@ genres = []
 user_score = []
 
 
-header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+header = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'}
 url = 'https://www.gamespot.com'
 start_time = time()
 request = 0
-for page_num in range(501, 601):
+for page_num in range(541, 551):
     result = r.get((url + '/reviews/?page=' + str(page_num)), headers=header)
     #print(result.status_code)
     request += 1
@@ -37,11 +37,13 @@ for page_num in range(501, 601):
     articles = soup.find_all('article', class_='media media-game media-game')
     
     #print(len(articles))
-    
+    sub = 0
     for article in articles:
         game = r.get((url + article.a.get('href')), headers=header)
+        print(game.status_code)
         soup2 = BeautifulSoup(game.content, 'html.parser')
-        
+        sub += 1
+        print('\tSub: ' + str(sub))
         if(soup2.find('title').text.strip() != 'Busted - GameSpot'):
             #name
             names.append(str((soup2.find('dt', class_='pod-objectStats-info__title').text.strip())[:-9].strip()))
@@ -94,7 +96,7 @@ for page_num in range(501, 601):
                 publishers.append(None)
                 genres.append(None)
             
-            sleep(randint(1, 3))
+            sleep(randint(5, 10))
 
 total_time = time()-start_time
 print(total_time)    
@@ -108,7 +110,7 @@ db = pd.DataFrame({'name': names,
                    'genres': genres,
                    'user_score': user_score})
 
-db.to_csv('gamespot6.csv')
+db.to_csv('gamespot6_5.csv')
     
     
     
