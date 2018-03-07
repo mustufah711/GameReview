@@ -27,7 +27,7 @@ header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWeb
 url = 'https://www.gamespot.com'
 start_time = time()
 request = 0
-for page_num in range(1, 101):
+for page_num in range(501, 601):
     result = r.get((url + '/reviews/?page=' + str(page_num)), headers=header)
     #print(result.status_code)
     request += 1
@@ -108,7 +108,7 @@ db = pd.DataFrame({'name': names,
                    'genres': genres,
                    'user_score': user_score})
 
-db.to_csv('gamespot.csv')
+db.to_csv('gamespot6.csv')
     
     
     
