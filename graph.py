@@ -52,10 +52,10 @@ dbRun2(myConn)
 my_data = {'Figher':{'IGN':score1[0], 'Dest':score2[0]},
            'RPG':{'IGN':score3[0], 'Dest':score4[0]}}
 df = pd.DataFrame(my_data)
-axs = df.T.plot(kind='bar', title='Genre Averages', figsize=(10,10), fontsize=12)
+axs = df.T.plot(kind='bar', figsize=(10,10), fontsize=12)
 axs.set_xlabel("Genre Type", fontsize=12)
 axs.set_ylabel("Average Score", fontsize=12)
-
+plt.title('Genre Averages', fontsize=16)
 plt.show()
 
 myConn.close()
