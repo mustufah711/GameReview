@@ -18,14 +18,14 @@ def main():
     start_time = time()
     
     
-    for i in range(1,5):
+    for i in range(1,201):
         print('iteration', '', i)
         header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
         response = get('https://www.destructoid.com/products-index.phtml?filt=reviews&date_s=desc&category=&nonce=1518737806537&start='+j, headers = header)
         print(response)
         j = int(j)+25
         j = str(j)
-        sleep(randint(5,7))
+        sleep(randint(2,4))
         requests+=1
         elapsed_time = time() - start_time
         #Print how long each request takes
@@ -37,7 +37,7 @@ def main():
             warn('Request: {}; Status code: {}'.format(requests, response.status_code))    
             
         #Make sure request do not exceed certain limit
-        if requests > 4:
+        if requests > 200:
             warn('Number of requests was greater than expected.')  
             break
         
@@ -70,6 +70,6 @@ def main():
                          'score': score,
                          'platform': platform,
                          'date': review_date})
-    info.to_csv('destructoid1.csv')    
+    info.to_csv('destructoid2.csv')    
         
 main()
