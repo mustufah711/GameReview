@@ -40,7 +40,9 @@ def dbRun(conn):
     
     for scores1, scores2 in cur.fetchall():
         score1.append(scores1)
+        print(score1)
         score2.append(scores2)
+        print(score2)
 
 #Running for RPG game genre
 def dbRun2(conn):
@@ -68,15 +70,15 @@ dbRun3(myConn)
 print(score3)
 
 #Dictionary of result average scores for each genre
-my_data = {'Figher':{'IGN':score1[0], 'Dest':score2[0]},
+my_data = {'Fighter':{'IGN':score1[0], 'Dest':score2[0]},
            'RPG':{'IGN':score3[0], 'Dest':score4[0]},
-           'Adventure':{'IGN':score5[0], 'Dest':score6[0], 'Poly':score7[0]}}
+           'Adventure':{'IGN':score5[0], 'Dest':score6[0]}}
 #Conver to dataframe
 df = pd.DataFrame(my_data)
 #Graphing dataframe using Bar graph
 axs = df.T.plot(kind='bar', figsize=(10,10), fontsize=12)
-axs.set_xlabel("Genre Type", fontsize=12)
-axs.set_ylabel("Average Score", fontsize=12)
+axs.set_xlabel("Genre Type", fontsize=13)
+axs.set_ylabel("Game Rating Between 0-10", fontsize=13)
 plt.title('Genre Averages', fontsize=16)
 plt.show()
 
