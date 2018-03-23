@@ -22,7 +22,9 @@ database = 'GameReviews'
 score1 = []
 score2 = []
 
-#Running for fighter game genre
+print('hi')
+
+#Running for game genres
 def dbRun(conn, query):
     cur = conn.cursor()
     cur.execute(query)
@@ -49,7 +51,7 @@ my_data = {'Fighter':{'IGN':score1[0], 'Dest':score2[0]},
 #Conver to dataframe
 df = pd.DataFrame(my_data)
 #Graphing dataframe using Bar graph
-axs = df.T.plot(kind='bar', figsize=(10,10), fontsize=12)
+axs = df.T.plot(kind='bar', figsize=(12,12), fontsize=12)
 axs.set_xlabel("Genre Type", fontsize=13)
 axs.set_ylabel("Game Rating Between 0-10", fontsize=13)
 plt.title('Genre Averages', fontsize=16)
