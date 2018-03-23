@@ -24,13 +24,13 @@ def db(conn):
     cur = conn.cursor()
     cur.execute("SELECT extract(YEAR FROM Reviewed) as y, AVG(Score) FROM IGN group by y")
     
-    for beers, bars in cur.fetchall():
-        year.append(float(beers))
-        score.append(float(bars))
+    for scores, years in cur.fetchall():
+        year.append(float(scores))
+        score.append(float(years))
         
 myConn = mysql.connector.connect(host=hostname, user=username, passwd=password, db=database)
 db(myConn)
-my_data = {'2010':{'IGN':score[0]},
+my_data = {'2010':{'IGN':score[0], 'Dest': destScore[0]}, #Follow this example for Destructoid and Gamespot
            '2011':{'IGN':score[1]},
            '2012':{'IGN':score[2]},
            '2013':{'IGN':score[3]},
