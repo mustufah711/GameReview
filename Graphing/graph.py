@@ -61,6 +61,7 @@ def dbRun3(conn):
         score5.append(scores1)
         score6.append(scores2)
         score7.append(scores3)
+    cur.close()
 
 #Connect to mysql database
 myConn = mysql.connector.connect(host=hostname, user=username, passwd=password, db=database)
