@@ -21,40 +21,57 @@ database = 'GameReviews'
 #Storing game average results
 score1 = []
 score2 = []
-
-print('hi')
+score3 = []
 
 #Running for game genres
 def dbRun(conn, query):
     cur = conn.cursor()
     cur.execute(query)
     
-    for scores1, scores2 in cur.fetchall():
+    for scores1, scores2, scores3 in cur.fetchall():
         score1.append(scores1)
         score2.append(scores2)
+        score3.append(scores3)
     cur.close()
+
 #Connect to mysql database
 myConn = mysql.connector.connect(host=hostname, user=username, passwd=password, db=database)
 
-query1 = "select round(AVG(i.Score),2) as ign, round(AVG(d.Score),2) as dest from Destructoid d, (select distinct name, genre,score from IGN)i where d.name = i.name and i.Genre like '%Fighting%'"
-query2 = "select round(AVG(i.Score),2) as ign, round(AVG(d.Score),2) as dest from Destructoid d, (select distinct name, genre,score from IGN)i where d.name = i.name and i.Genre like '%RPG%'"
-query3 = "select round(AVG(i.Score),2) as ign, round(AVG(d.Score),2) as dest from Destructoid d, (select distinct name, genre,score from IGN)i where d.name = i.name and i.Genre like '%Adventure%'"
+query1 = """select distinct round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
+        from Gamespot g, (select distinct name, genre,score from IGN)i, Destructoid d 
+        where g.name = i.name and d.name = i.name and i.Genre like '%Fighting%'"""
+query2 = """select distinct round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
+        from Gamespot g, (select distinct name, genre,score from IGN)i, Destructoid d 
+        where g.name = i.name and d.name = i.name and i.Genre like '%RPG%'"""
+query3 = """select distinct round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
+        from Gamespot g, (select distinct name, genre,score from IGN)i, Destructoid d 
+        where g.name = i.name and d.name = i.name and i.Genre like '%Adventure%'"""
+query4 = """select distinct round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
+        from Gamespot g, (select distinct name, genre,score from IGN)i, Destructoid d 
+        where g.name = i.name and d.name = i.name and i.Genre like '%Action%'"""
+query5 = """select distinct round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
+        from Gamespot g, (select distinct name, genre,score from IGN)i, Destructoid d 
+        where g.name = i.name and d.name = i.name and i.Genre like '%Shooter%'"""
 
 dbRun(myConn,query1)
 dbRun(myConn,query2)
 dbRun(myConn,query3)
+dbRun(myConn,query4)
+dbRun(myConn,query5)
 
 #Dictionary of result average scores for each genre
-my_data = {'Fighter':{'IGN':score1[0], 'Dest':score2[0]},
-           'RPG':{'IGN':score1[1], 'Dest':score2[1]},
-           'Adventure':{'IGN':score1[2], 'Dest':score2[2]}}
+my_data = {'Fighter':{'IGN':score1[0], 'Gamespot':score2[0], 'Dest':score3[0]},
+           'RPG':{'IGN':score1[1], 'Gamespot':score2[1], 'Dest':score3[1]},
+           'Adventure':{'IGN':score1[2], 'Gamespot':score2[2], 'Dest':score3[2]},
+           'Action':{'IGN':score1[3], 'Gamespot':score2[3], 'Dest':score3[3]},
+           'Shooter':{'IGN':score1[4], 'Gamespot':score2[4], 'Dest':score3[4]}}
 #Conver to dataframe
 df = pd.DataFrame(my_data)
 #Graphing dataframe using Bar graph
 axs = df.T.plot(kind='bar', figsize=(12,12), fontsize=12)
 axs.set_xlabel("Genre Type", fontsize=13)
-axs.set_ylabel("Game Rating Between 0-10", fontsize=13)
-plt.title('Genre Averages', fontsize=16)
+axs.set_ylabel("Game Rating Averages", fontsize=13)
+plt.title('Game Genre Averages', fontsize=16)
 plt.show()
 
 myConn.close()
