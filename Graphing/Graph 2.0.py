@@ -37,34 +37,39 @@ def dbRun(conn, query):
 #Connect to mysql database
 myConn = mysql.connector.connect(host=hostname, user=username, passwd=password, db=database)
 
-query1 = """select distinct round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
+query1 = """select round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
         from Gamespot g, (select distinct name, genre,score from IGN)i, Destructoid d 
         where g.name = i.name and d.name = i.name and i.Genre like '%Fighting%'"""
-query2 = """select distinct round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
+query2 = """select round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
         from Gamespot g, (select distinct name, genre,score from IGN)i, Destructoid d 
         where g.name = i.name and d.name = i.name and i.Genre like '%RPG%'"""
-query3 = """select distinct round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
+query3 = """select round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
         from Gamespot g, (select distinct name, genre,score from IGN)i, Destructoid d 
         where g.name = i.name and d.name = i.name and i.Genre like '%Adventure%'"""
-query4 = """select distinct round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
+query4 = """select round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
         from Gamespot g, (select distinct name, genre,score from IGN)i, Destructoid d 
         where g.name = i.name and d.name = i.name and i.Genre like '%Action%'"""
-query5 = """select distinct round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
+query5 = """select round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
         from Gamespot g, (select distinct name, genre,score from IGN)i, Destructoid d 
-        where g.name = i.name and d.name = i.name and i.Genre like '%Shooter%'"""
+        where g.name = i.name and d.name = i.name and i.Genre like '%Platformer%'"""
+query6 = """select round(AVG(i.Score),2) as ign, round(AVG(g.Score),2) as Gamespot, round(AVG(d.score),2) as Dest
+        from Gamespot g, (select distinct name, genre,score from IGN)i, Destructoid d 
+        where g.name = i.name and d.name = i.name and i.Genre like '%Sports%'"""        
 
 dbRun(myConn,query1)
 dbRun(myConn,query2)
 dbRun(myConn,query3)
 dbRun(myConn,query4)
 dbRun(myConn,query5)
+dbRun(myConn,query6)
 
 #Dictionary of result average scores for each genre
 my_data = {'Fighter':{'IGN':score1[0], 'Gamespot':score2[0], 'Dest':score3[0]},
            'RPG':{'IGN':score1[1], 'Gamespot':score2[1], 'Dest':score3[1]},
            'Adventure':{'IGN':score1[2], 'Gamespot':score2[2], 'Dest':score3[2]},
            'Action':{'IGN':score1[3], 'Gamespot':score2[3], 'Dest':score3[3]},
-           'Shooter':{'IGN':score1[4], 'Gamespot':score2[4], 'Dest':score3[4]}}
+           'Platformer':{'IGN':score1[4], 'Gamespot':score2[4], 'Dest':score3[4]},
+           'Sports':{'IGN':score1[5], 'Gamespot':score2[5], 'Dest':score3[5]}}
 #Conver to dataframe
 df = pd.DataFrame(my_data)
 #Graphing dataframe using Bar graph
