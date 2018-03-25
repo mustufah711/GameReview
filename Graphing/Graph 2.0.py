@@ -32,7 +32,7 @@ def dbRun(conn, query):
     for scores1, scores2 in cur.fetchall():
         score1.append(scores1)
         score2.append(scores2)
-
+    cur.close()
 #Connect to mysql database
 myConn = mysql.connector.connect(host=hostname, user=username, passwd=password, db=database)
 
