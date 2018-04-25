@@ -87,4 +87,21 @@ print 'ML Prediction'
 list1 = clf.predict(master_list[-10:])
 print list1
 print 'Expected Value'
+
+expected = score[-10:]
 print score[-10:]
+
+count = 0
+for i in range(0, len(list1)):
+    if(list1[i] - expected[i]  == 0):
+        count += 1
+    
+print((count/len(list1)))
+    
+    
+    
+    
+    
+    
+    
+    
