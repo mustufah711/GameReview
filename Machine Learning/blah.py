@@ -1,6 +1,7 @@
 
 import mysql.connector
 from sklearn import svm
+import numpy as np
 
 score = []
 master_list = []
@@ -66,7 +67,7 @@ def dbRun(conn, query):
         a = long(i[3])
         game.append(a)
         master_list.append(game)
-        score.append(long(i[2]))
+        score.append(int(i[2]))
     cur.close()
     cur1.close()
     cur2.close()
@@ -76,15 +77,26 @@ username = 'gamers'
 password = 'mostharsh'
 database = 'GameReviews'
     
-query1 = 'select publisher, genre, score, userscore from Gamespot limit 100 '
+query1 = 'select publisher, genre, score, userscore from Gamespot limit 1000'
 myConn = mysql.connector.connect(host=hostname, user=username, passwd=password, db=database)
 dbRun(myConn, query1)
 
 #Machine Learning Section
 clf = svm.SVC(gamma=0.019, C=50)
-clf.fit(master_list[:-10], score[:-10])
+clf.fit(master_list[:-100], score[:-100])
 print 'ML Prediction'
-list1 = clf.predict(master_list[-10:])
+list1 = clf.predict(master_list[-100:])
 print list1
 print 'Expected Value'
-print score[-10:]
+expected = score[-100:]
+print expected
+
+count = 0
+count2 = 0
+for i in range(0, len(list1)):
+    if(np.subtract(list1[i],expected[i]) == 0 or np.subtract(list1[i],expected[i]) == 1 or np.subtract(expected[i],list1[i]) == 1):
+        count2 = count2+1
+    if(np.subtract(list1[i],expected[i]) == 0):
+        count = count+1
+print 'ML Prediction Exact Match ', ((float(count)/len(list1)))
+print 'ML Prediction Accuracy Close Match', ((float(count2)/len(list1)))
