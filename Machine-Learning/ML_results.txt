@@ -1,0 +1,11 @@
+10000:
+	ML Prediction Exact Match  0.418
+	ML Prediction Accuracy Close Match 0.832
+
+7500:
+	ML Prediction Exact Match  0.444
+	ML Prediction Accuracy Close Match 0.8546666666666667
+
+5000:
+
+2500:
