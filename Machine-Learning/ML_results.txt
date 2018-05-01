@@ -17,3 +17,7 @@
 developer 10k:
 	ML Prediction Exact Match  0.456
 	ML Prediction Accuracy Close Match 0.863
+
+devs and pubs 10k:
+	ML Prediction Exact Match  0.422
+	ML Prediction Accuracy Close Match 0.848
