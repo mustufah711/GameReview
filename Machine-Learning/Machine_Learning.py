@@ -2,6 +2,8 @@
 import mysql.connector
 from sklearn import svm
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
 score = []
 master_list = []
@@ -77,18 +79,19 @@ username = 'gamers'
 password = 'mostharsh'
 database = 'GameReviews'
     
-query1 = 'select publisher, genre, score, userscore from Gamespot limit 1000'
+query1 = 'select publisher, genre, score, userscore from Gamespot limit 5000'
 myConn = mysql.connector.connect(host=hostname, user=username, passwd=password, db=database)
 dbRun(myConn, query1)
 
 #Machine Learning Section
 clf = svm.SVC(gamma=0.019, C=50)
-clf.fit(master_list[:-100], score[:-100])
+clf.fit(master_list[:-1000], score[:-1000])
 print 'ML Prediction'
-list1 = clf.predict(master_list[-100:])
+list1 = clf.predict(master_list[-1000:])
+list1 = list1.tolist()
 print list1
 print 'Expected Value'
-expected = score[-100:]
+expected = score[-1000:]
 print expected
 
 count = 0
