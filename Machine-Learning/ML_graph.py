@@ -1,26 +1,5 @@
 import matplotlib.pyplot as plt
-import csv
 import pandas as pd
-
-x = []
-y = []
-z = []
-
-with open('10000.csv','r') as csvfile:
-    plots = csv.reader(csvfile, delimiter=',')
-    for row in plots:
-        x.append((row[1]))
-        y.append((row[2]))
-        z.append((row[0]))
-
-x = x[1:]
-y = y[1:]
-z = z[1:]
-
-for i in range(0,1000):
-    x[i]=int(x[i])
-    y[i]=int(y[i])
-    z[i]=int(z[i])
 
 master_list = []
 master_list = [41.8, 83.2, 12.68, 21.63, 42.2, 84.8]
